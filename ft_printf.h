@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 14:59:52 by lottavi           #+#    #+#             */
-/*   Updated: 2023/03/30 13:51:26 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 12:22:21 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int		print_unsigned(unsigned int nb);
 int		print_string(char *s);
 int		print_int(int n);
 int		print_char(char c);
-int		print_hex(unsigned int value, int asc);
+int		ft_print_hex(unsigned int num, const char format);
 
 #endif

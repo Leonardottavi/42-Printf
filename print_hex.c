@@ -6,55 +6,51 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:01:03 by lottavi           #+#    #+#             */
-/*   Updated: 2023/05/10 11:35:43 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 12:22:33 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*create_string(unsigned int value, int *strlen)
+int	ft_hex_len(unsigned	int num)
 {
-	int				i;
-	unsigned int	temp;
-	char			*str;
+	int	len;
 
-	i = 0;
-	temp = value;
-	while (temp != 0)
+	len = 0;
+	while (num != 0)
 	{
-		temp = temp / 16;
-		i++;
+		len++;
+		num = num / 16;
 	}
-	str = ft_calloc(i + 1, sizeof(char));
-	*strlen = i - 1;
-	return (str);
+	return (len);
 }
 
-int	print_hex(unsigned int value, int asc)
+void	ft_put_hex(unsigned int num, const char format)
 {
-	unsigned int	tempval;
-	char			*printout;
-	int				i;
-	int				*iptr;
-
-	iptr = &i;
-	tempval = value;
-	printout = create_string(value, iptr);
-	if (!printout)
-		return (0);
-	while (tempval != 0)
+	if (num >= 16)
 	{
-		if ((tempval % 16) < 10)
-			printout[i] = (tempval % 16) + 48;
-		else
-			printout[i] = (tempval % 16) + asc;
-		tempval = tempval / 16;
-		i--;
+		ft_put_hex(num / 16, format);
+		ft_put_hex(num % 16, format);
 	}
-	ft_putstr_fd(printout, 1);
-	i = ft_strlen(printout);
-	free(printout);
-	if (value == 0)
-		i += print_char('0');
-	return (i);
+	else
+	{
+		if (num <= 9)
+			ft_putchar_fd((num + '0'), 1);
+		else
+		{
+			if (format == 'x')
+				ft_putchar_fd((num - 10 + 'a'), 1);
+			if (format == 'X')
+				ft_putchar_fd((num - 10 + 'A'), 1);
+		}
+	}
+}
+
+int	ft_print_hex(unsigned int num, const char format)
+{
+	if (num == 0)
+		return (write(1, "0", 1));
+	else
+		ft_put_hex(num, format);
+	return (ft_hex_len(num));
 }
