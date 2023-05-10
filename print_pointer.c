@@ -6,55 +6,53 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:03:02 by lottavi           #+#    #+#             */
-/*   Updated: 2023/05/10 11:36:11 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 12:26:30 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*create_string(unsigned long value, int *strlen)
+int	ft_ptr_len(uintptr_t num)
 {
-	int				i;
-	unsigned long	temp;
-	char			*str;
+	int	len;
 
-	i = 0;
-	temp = value;
-	while (temp != 0)
+	len = 0;
+	while (num != 0)
 	{
-		temp = temp / 16;
-		i++;
+		len++;
+		num = num / 16;
 	}
-	str = ft_calloc(i + 1, sizeof(char));
-	*strlen = i - 1;
-	return (str);
+	return (len);
 }
 
-int	print_pointer(unsigned long value, int asc)
+void	ft_put_pointer(uintptr_t num)
 {
-	unsigned long	tempval;
-	char			*printout;
-	int				i;
-	int				*iptr;
-
-	iptr = &i;
-	tempval = value;
-	printout = create_string(value, iptr);
-	if (!printout)
-		return (0);
-	while (tempval != 0 && i-- >= 0)
+	if (num >= 16)
 	{
-		if ((tempval % 16) < 10)
-			printout[i + 1] = (tempval % 16) + 48;
-		else
-			printout[i + 1] = (tempval % 16) + asc;
-		tempval = tempval / 16;
+		ft_put_pointer(num / 16);
+		ft_put_pointer(num % 16);
 	}
-	i = ft_strlen(printout);
-	i = i + print_string("0x");
-	ft_putstr_fd(printout, 1);
-	free(printout);
-	if (value == 0)
-		i += print_char('0');
-	return (i);
+	else
+	{
+		if (num <= 9)
+			ft_putchar_fd((num + '0'), 1);
+		else
+			ft_putchar_fd((num - 10 + 'a'), 1);
+	}
+}
+
+int	print_pointer(unsigned long long ptr)
+{
+	int	print_length;
+
+	print_length = 0;
+	print_length += write(1, "0x", 2);
+	if (ptr == 0)
+		print_length += write(1, "0", 1);
+	else
+	{
+		ft_put_pointer(ptr);
+		print_length += ft_ptr_len(ptr);
+	}
+	return (print_length);
 }
