@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:03:02 by lottavi           #+#    #+#             */
-/*   Updated: 2023/05/10 11:34:23 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:36:11 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ static char	*create_string(unsigned long value, int *strlen)
 		temp = temp / 16;
 		i++;
 	}
-	str = calloc(i + 1, sizeof(char));
+	str = ft_calloc(i + 1, sizeof(char));
 	*strlen = i - 1;
 	return (str);
 }
+
 int	print_pointer(unsigned long value, int asc)
 {
 	unsigned long	tempval;

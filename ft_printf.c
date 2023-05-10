@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 14:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2023/05/10 11:34:00 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:40:26 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static int	check_type(const char *input, void *arg)
 
 int	ft_printf(const char *input, ...)
 {
-	va_list			args;
 	unsigned int	i;
+	va_list			args;
 
 	i = 0;
 	va_start(args, input);

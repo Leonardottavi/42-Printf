@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:01:03 by lottavi           #+#    #+#             */
-/*   Updated: 2023/05/10 11:34:13 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:35:43 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ static char	*create_string(unsigned int value, int *strlen)
 		temp = temp / 16;
 		i++;
 	}
-	str = calloc(i + 1, sizeof(char));
+	str = ft_calloc(i + 1, sizeof(char));
 	*strlen = i - 1;
 	return (str);
 }
+
 int	print_hex(unsigned int value, int asc)
 {
 	unsigned int	tempval;
