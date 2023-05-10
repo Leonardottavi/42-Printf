@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 14:59:52 by lottavi           #+#    #+#             */
-/*   Updated: 2023/05/10 12:43:13 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 16:40:56 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int		print_unsigned(unsigned int nb);
 int		print_string(char *s);
 int		print_int(int n);
 int		print_char(char c);
-int		print_hex(unsigned int num, const char format);
+int		print_upcase(unsigned int nbr);
+int		print_lowcase(unsigned int nbr);
+int		ft_count16(unsigned long long ptr);
 
 #endif
