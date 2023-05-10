@@ -6,62 +6,57 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 14:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2023/05/10 12:31:20 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 12:42:48 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#include "ft_printf.h"
-
-int	ft_printchar(int c)
+static int	check_type(const char *input, void *arg)
 {
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_formats(va_list args, const char format)
-{
-	int	print_length;
-
-	print_length = 0;
-	if (format == 'c')
-		print_length += ft_printchar(va_arg(args, int));
-	else if (format == 's')
-		print_length += ft_printstr(va_arg(args, char *));
-	else if (format == 'p')
-		print_length += ft_print_ptr(va_arg(args, unsigned long long));
-	else if (format == 'd' || format == 'i')
-		print_length += ft_printnbr(va_arg(args, int));
-	else if (format == 'u')
-		print_length += ft_print_unsigned(va_arg(args, unsigned int));
-	else if (format == 'x' || format == 'X')
-		print_length += ft_print_hex(va_arg(args, unsigned int), format);
-	else if (format == '%')
-		print_length += ft_printpercent();
-	return (print_length);
-}
-
-int	ft_printf(const char *str, ...)
-{
-	int		i;
-	va_list	args;
-	int		print_length;
+	int	i;
 
 	i = 0;
-	print_length = 0;
-	va_start(args, str);
-	while (str[i])
+	if (*input == 'c')
+		i += print_char((int)arg);
+	else if (*input == 's')
+		i += print_string((char *)arg);
+	else if (*input == 'p')
+		i += print_pointer((unsigned long)arg, 87);
+	else if (*input == 'd')
+		i += print_int((int)arg);
+	else if (*input == 'i')
+		i += print_int((int)arg);
+	else if (*input == 'u')
+		i += print_unsigned((unsigned int)arg);
+	else if (*input == 'x')
+		i += print_hex((unsigned int)arg, 87);
+	else if (*input == 'X')
+		i += print_hex((unsigned int)arg, 55);
+	return (i);
+}
+
+int	ft_printf(const char *input, ...)
+{
+	va_list			args;
+	unsigned int	i;
+
+	i = 0;
+	va_start(args, input);
+	while (*input != '\0')
 	{
-		if (str[i] == '%')
+		if (*input == '%')
 		{
-			print_length += ft_formats(args, str[i + 1]);
-			i++;
+			input++;
+			if (ft_strchr("cspdiuxX", *input))
+				i += check_type(input, va_arg(args, void *));
+			else if (*input == '%')
+				i += print_char('%');
 		}
 		else
-			print_length += ft_printchar(str[i]);
-		i++;
+			i = i + print_char(*input);
+		input++;
 	}
 	va_end(args);
-	return (print_length);
+	return (i);
 }

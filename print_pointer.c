@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:03:02 by lottavi           #+#    #+#             */
-/*   Updated: 2023/05/10 12:26:30 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 12:42:22 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	ft_ptr_len(uintptr_t num)
 	return (len);
 }
 
-void	ft_put_pointer(uintptr_t num)
+void	ft_put_ptr(uintptr_t num)
 {
 	if (num >= 16)
 	{
-		ft_put_pointer(num / 16);
-		ft_put_pointer(num % 16);
+		ft_put_ptr(num / 16);
+		ft_put_ptr(num % 16);
 	}
 	else
 	{
@@ -51,7 +51,7 @@ int	print_pointer(unsigned long long ptr)
 		print_length += write(1, "0", 1);
 	else
 	{
-		ft_put_pointer(ptr);
+		ft_put_ptr(ptr);
 		print_length += ft_ptr_len(ptr);
 	}
 	return (print_length);
