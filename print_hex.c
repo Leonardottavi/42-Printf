@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:01:03 by lottavi           #+#    #+#             */
-/*   Updated: 2023/05/10 12:26:55 by lottavi          ###   ########.fr       */
+/*   Updated: 2023/05/10 12:33:10 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_put_hex(unsigned int num, const char format)
 	}
 }
 
-int	print_hex(unsigned int num, const char format)
+int	ft_print_hex(unsigned int num, const char format)
 {
 	if (num == 0)
 		return (write(1, "0", 1));
